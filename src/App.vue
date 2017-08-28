@@ -27,17 +27,25 @@
                 <el-menu-item index="5">
                   <router-link :to="{ name: 'activePublic', params: {} }">美食推荐</router-link>
                 </el-menu-item>
-                <el-menu-item index="6">
-                  <el-input placeholder="请输入搜索关键词" icon="search" v-model="input2" :on-icon-click="handleIconClick"></el-input>
+                <el-menu-item index="6" class="search">
+                  <el-input placeholder="请输入搜索关键词" icon="search" v-model="input2"></el-input>
                 </el-menu-item>
-                <el-menu-item index="6" style="padding:0;">
-                  <img class="img-icon" src="./assets/imgs/icon01.png">
+                <el-menu-item index="6" style="padding:0;" class="logout">
+                  <el-dropdown>
+                    <span class="el-dropdown-link">
+                      <img class="img-icon" src="./assets/imgs/icon01.png">
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
+                      <el-dropdown-item>修改密码</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+
                 </el-menu-item>
               </el-menu>
             </el-col>
           </el-row>
         </header>
-        <div style="position: relative;height: 30px;width: 100%;"></div>
 
         <main>
               <div  class="main-right" >
@@ -54,6 +62,18 @@ export default {
     return {
       active: true,
       input2: ''
+    }
+  },
+  methods: {
+    logout: function () {
+      console.log('1')
+      sessionStorage.removeItem('user')
+      this.$router.push('/')
+//      this.$router.replace('/')
+      this.$message({
+        type: 'success',
+        message: '登出成功'
+      })
     }
   }
 }
@@ -95,4 +115,8 @@ export default {
     main .main-left{text-align: center;width: 200px;float: left;}
     main .main-right{-webkit-box-flex: 1;  -ms-flex: 1;  flex: 1;  background-color: #fff; padding: 0px 70px; }
     main .el-menu{background-color: transparent!important;}
+    .search:hover,.logout:hover{
+      text-decoration: none !important;
+      border: none !important;
+    }
 </style>

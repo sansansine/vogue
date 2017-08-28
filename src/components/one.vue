@@ -2,7 +2,7 @@
   <div class="one">
     <el-row class="tac">
       <el-col :span="4">
-        <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+        <el-menu default-active="1" class="el-menu-vertical-demo">
           <el-menu-item index="1"><i class="icon1"></i>家常菜</el-menu-item>
           <el-menu-item index="2"><i class="icon2"></i>快手菜</el-menu-item>
           <el-menu-item index="3"><i class="icon3"></i>下饭菜</el-menu-item>
@@ -65,14 +65,13 @@
         </el-card>
       </el-col>
       <el-col :span="7">
-        <div class="login">
+        <div class="reg">
           <el-button type="primary"><i class="el-icon-upload el-icon--right"></i>QQ登录</el-button><br/><br/>
           <el-button type="primary"><i class="el-icon-upload el-icon--right"></i>微博登录</el-button><br/><br/>
-          <a href="#">手机/邮箱登录</a>&nbsp;&nbsp;<span style="color:rgba(61, 53, 31, 0.48);">|</span>&nbsp;&nbsp;<a href="#">注册</a>
+          <a v-link="{ path: '/'}">手机/邮箱登录</a>&nbsp;&nbsp;<span style="color:rgba(61, 53, 31, 0.48);">|</span>&nbsp;&nbsp;<a href="#">注册</a>
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -80,7 +79,7 @@
 .right-split{
   margin-right: 37px;
 }
-.login{
+.reg{
   background: rgb(246, 245, 238);
   height: 180px;
   width: 300px;
@@ -88,10 +87,10 @@
   text-align: center;
   padding-top: 45px;
 }
-.login .el-button{
+.reg .el-button{
   width: 200px;
 }
-.login a{
+.reg a{
   color: orange;
 }
 .icon1,.icon2,.icon3,.icon4,.icon5{
@@ -179,7 +178,7 @@ export default{
   },
   data () {
     return {
-      // currentDate: new Date(),
+      currentDate: new Date(),
       items: ['../static/banner1.jpg', '../static/banner2.jpg', '../static/banner3.jpg'],
       swiperOption: {
         autoplay: 3000,
@@ -198,6 +197,11 @@ export default{
   computed: {
     swiper () {
       return this.$refs.mySwiper.swiper
+    }
+  },
+  methods: {
+    increment () {
+      this.$store.commit('increment')
     }
   },
   mounted () {

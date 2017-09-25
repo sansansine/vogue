@@ -1,4 +1,4 @@
-Demo地址：![Demo](https://sansansine.github.io/vogue/dist/index.html#/)
+Demo地址：https://sansansine.github.io/vogue/dist/index.html#/
 # vogue
 
 > A Vue.js project

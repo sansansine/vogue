@@ -19,28 +19,19 @@ var jsonWrite = function (res, ret) {
   }
 }
 
-// 增加用户接口
-router.post('/addUser', (req, res) => {
-  var sql = $sql.user.add
-  var params = req.body
-  console.log(params)
-  var success = false
-  conn.query(sql, [params.name, params.pwd], function (err, result) {
+// 增加问题列表接口
+router.post('/questList', (req, res) => {
+  var sql = $sql.quest.select
+
+  conn.query(sql, function (err, result) {
     console.log(result)
     if (err) {
       console.log('err')
-    } else if (result.length <= 0) {
-      success = false
-      console.log('fail')
+      jsonWrite(res, false)
     } else {
-      success = true
+      jsonWrite(res, result)
     }
-    jsonWrite(res, success)
   })
-})
-// 增加用户接口
-router.get('/addUser', (req, res) => {
-  res.send('retrunJson')
 })
 
 module.exports = router

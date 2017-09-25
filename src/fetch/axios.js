@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-import * as _ from '../util/tool'
+import { Message } from 'element-ui'
 
 axios.defaults.timeout = 5000
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -14,7 +14,11 @@ axios.interceptors.request.use((config) => {
   console.log('config.data:' + config.data)
   return config
 }, (error) => {
-  _.toast('错误的传参', 'fail')
+  Message({
+    showClose: true,
+    message: error,
+    type: 'error.data.error.message'
+  })
   return Promise.reject(error)
 })
 
@@ -25,7 +29,6 @@ axios.interceptors.response.use((res) => {
   }
   return res
 }, (error) => {
-  _.toast('网络异常', 'fail')
   return Promise.reject(error)
 })
 
@@ -36,13 +39,11 @@ export function fetch (url, params) {
         .then(response => {
           // const result = response.data
           resolve(response.data)
-          // console.log('6:' + result)
+          console.log('6:')
         }, err => {
           reject(err)
-          console.log('5:')
         })
         .catch((error) => {
-          console.log('4' + error)
           reject(error)
         })
   })
@@ -54,5 +55,17 @@ export function fetch (url, params) {
 export default {
   Login (params) {
     return fetch('/api/user/addUser', params)
+  },
+  showFoodList () {
+    return fetch('/api/food/foodList', null)
+  },
+  showFoodPopList () {
+    return fetch('/api/food/foodPopList', null)
+  },
+  showQuestList () {
+    return fetch('/api/quest/questList', null)
+  },
+  showSearchList () {
+    return fetch('/api/search/searchList', null)
   }
 }

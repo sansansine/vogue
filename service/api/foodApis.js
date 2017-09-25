@@ -19,28 +19,33 @@ var jsonWrite = function (res, ret) {
   }
 }
 
-// 增加用户接口
-router.post('/addUser', (req, res) => {
-  var sql = $sql.user.add
-  var params = req.body
-  console.log(params)
-  var success = false
-  conn.query(sql, [params.name, params.pwd], function (err, result) {
+// 增加新秀食物列表接口
+router.post('/foodList', (req, res) => {
+  var sql = $sql.food.select
+
+  conn.query(sql, function (err, result) {
     console.log(result)
     if (err) {
       console.log('err')
-    } else if (result.length <= 0) {
-      success = false
-      console.log('fail')
+      jsonWrite(res, false)
     } else {
-      success = true
+      jsonWrite(res, result)
     }
-    jsonWrite(res, success)
   })
 })
-// 增加用户接口
-router.get('/addUser', (req, res) => {
-  res.send('retrunJson')
+// 增加流行食物列表接口
+router.post('/foodPopList', (req, res) => {
+  var sql = $sql.food.selectPop
+
+  conn.query(sql, function (err, result) {
+    console.log(result)
+    if (err) {
+      console.log('err')
+      jsonWrite(res, false)
+    } else {
+      jsonWrite(res, result)
+    }
+  })
 })
 
 module.exports = router

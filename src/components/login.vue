@@ -42,17 +42,8 @@ export default {
         if (valid) {
           console.log('val')
           let opt = this.loginForm
-          // this.$store.dispatch('setLoadingState', true)
           api.Login(opt)
               .then(res => {
-                // if (data.info === false) {
-                //   console.log('fail')
-                //   this.$message({
-                //     type: 'info',
-                //     message: '账号不存在'
-                //   })
-                //   return
-                // }
                 if (res) {
                   this.$message({
                     type: 'success',
@@ -64,7 +55,7 @@ export default {
                   // element-ui消息提示
                   this.$message({
                     type: 'info',
-                    message: '密码错误！'
+                    message: '用户名或密码错误！'
                   })
                 }
               })
@@ -78,7 +69,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .login{
     width: 40%;
     margin: 5% 25% 5% 25%;

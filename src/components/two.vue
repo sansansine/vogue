@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .reg{
   background: rgb(246, 245, 238);
   height: 180px;

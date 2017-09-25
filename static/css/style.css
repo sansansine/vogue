@@ -1,0 +1,29 @@
+.icon {
+  float: right;
+  margin-right: 15px;
+}
+.icon-keyword-equal {
+  background:url("../imgs/middle.png") center center no-repeat;
+  background-size: cover;
+}
+.icon-keyword-up {
+  background:url("../imgs/up.png") center center no-repeat;
+  background-size: cover;
+}
+.icon-keyword-down {
+  background:url("../imgs/down.png") center center no-repeat;
+  background-size: cover;
+}
+.num{
+  color: #ccc;
+  margin-right: 5px;
+}
+.search-item{
+  width: 120px;
+  float: left;
+  list-style-type:none;
+  padding: 10px 0;
+}
+.search-item a{
+  color: #666;
+}

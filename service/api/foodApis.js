@@ -47,5 +47,19 @@ router.post('/foodPopList', (req, res) => {
     }
   })
 })
+// 增加时令食材列表接口
+router.post('/foodNewList', (req, res) => {
+  var sql = $sql.food.selectNew
+
+  conn.query(sql, function (err, result) {
+    console.log(result)
+    if (err) {
+      console.log('err')
+      jsonWrite(res, false)
+    } else {
+      jsonWrite(res, result)
+    }
+  })
+})
 
 module.exports = router

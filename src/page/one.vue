@@ -1,6 +1,6 @@
 <template>
   <div class="one">
-    <el-row class="tac">
+    <el-row class="tac" style="padding: 0 70px;">
       <el-col :span="3">
         <el-menu default-active="1" class="el-menu-vertical-demo">
           <el-menu-item index="1"><i class="icon1"></i>家常菜</el-menu-item>
@@ -21,38 +21,33 @@
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
         <el-row style="margin-top:20px;">
-          <el-col>
+          <el-col class="list-head">
             <span class="foodlist-title">&nbsp;&nbsp;&nbsp;最新菜谱</span>
             <span class="title-page">
               <a><i class="el-icon-arrow-left"></i></a>&nbsp;&nbsp;&nbsp;
               <a><i class="el-icon-arrow-right"></i></a>&nbsp;&nbsp;&nbsp;
             </span>
           </el-col>
-          <el-col :span="7" style="margin: 10px 2% 10px 2%;" v-for="(item, index) in foodList" >
-            <el-card :body-style="{ padding: '0px' }">
-              <img v-bind:src="item.img" class="image">
-              <div style="padding: 10px;color:rgb(106, 98, 72);">
-                <div style="width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:keep-all;">{{item.title}}</div>
-                <a class="card-bottom"><i class="el-icon-more"></i></a>
-              </div>
-            </el-card>
-          </el-col>
+          <menu_pop></menu_pop>
         </el-row>
         <el-row>
-          <el-col>
+          <el-col class="list-head">
             <span class="foodlist-title">&nbsp;&nbsp;&nbsp;你问我答</span>
             <span class="title-page">
                 <a> 更多 </a>&nbsp;&nbsp;&nbsp;
               </span>
           </el-col>
         </el-row>
-        <el-card id="questions" class="box-card">
-          <div v-for="item in questList" class="text item">
-            <i class="el-icon-caret-right"></i>
-            <a>{{item.question}}</a>
-            <span>{{item.joins}}&nbsp;<i class="el-icon-star-on"></i></span>
-          </div>
-        </el-card>
+        <question_list></question_list>
+        <el-row>
+          <el-col class="list-head">
+            <span class="foodlist-title">&nbsp;&nbsp;&nbsp;时令食材</span>
+            <span class="title-page">
+              <a>更多</a>&nbsp;&nbsp;&nbsp;
+            </span>
+          </el-col>
+          <new_food></new_food>
+        </el-row>
       </el-col>
       <el-col :span="6">
         <div class="reg">
@@ -64,66 +59,48 @@
           href="#">注册</a>
         </div>
         <el-row style="margin-top:20px;">
-          <el-col style="margin-bottom: 20px;">
-            <span class="foodlist-title">&nbsp;&nbsp;&nbsp;热门搜索</span>
+          <el-col style="margin-bottom: 20px;" class="list-head">
+            <span>&nbsp;&nbsp;&nbsp;热门搜索</span>
+            <span class="title-page">
+              <a>更多</a>
+            </span>
+            <pup_search></pup_search>
+          </el-col>
+        </el-row>
+          <el-row style="margin-top:20px;">
+          <el-col class="list-head">
+            <span>&nbsp;&nbsp;流行菜谱</span>
             <span class="title-page">
               <a>更多</a>
             </span>
           </el-col>
-          <ul :span="24" v-for="(item, index) in searchList" >
-              <li class="search-item">
-                <span class="num">{{item.num}}</span>
-                <a>{{item.name}}</a>
-                <span v-bind:class="item.status">&nbsp;&nbsp;&nbsp;</span>
-              </li>
-          </ul>
+            <pop_food></pop_food>
         </el-row>
-        <el-row style="margin-top:20px;">
-          <el-col>
-            <span class="foodlist-title">&nbsp;&nbsp;&nbsp;流行菜谱</span>
-            <span class="title-page">
-              <a>更多</a>
-            </span>
-          </el-col>
-          <el-col :span="24" v-for="(item, index) in foodPopList" >
-            <el-card :body-style="{ padding: '0px' }">
-              <img v-bind:src="item.img" class="image">
-              <div style="padding: 10px;color:rgb(106, 98, 72);">
-                <span>{{item.title}}</span>
-                <a class="card-bottom"><i class="el-icon-more"></i></a>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-
       </el-col>
     </el-row>
-    <el-row>
-      <el-col :span="18">
-        <p>唯有美食与你不可辜负</p>
-      </el-col>
-      <el-col :span="6">
-        <i class="doc-icon-github elementdoc"></i>
-        <i class="doc-icon-weibo elementdoc"></i>
-      </el-col>
+    <el-row style="text-align: center;font-weight: 200;margin-top: 20px;background: rgb(243, 243, 243);">
+      <p><i class="el-icon-share"></i>&nbsp;唯有美食与你不可辜负</p>
     </el-row>
   </div>
 </template>
 
 <script>
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
-  import api from '../fetch/axios.js'
+  import menupop from '../components/popmenu.vue'
+  import questionlist from '../components/questionlist.vue'
+  import newfood from '../components/newfood.vue'
 
   export default {
     name: 'one',
     components: {
       swiper,
-      swiperSlide
+      swiperSlide,
+      menupop,
+      questionlist,
+      newfood
     },
     data () {
       return {
-        questList: [],
-        foodList: [],
         foodPopList: [],
         searchList: [],
         items: ['../static/banner1.jpg', '../static/banner2.jpg', '../static/banner3.jpg'],
@@ -141,29 +118,7 @@
         swiperSlides: [1, 2, 3, 4, 5]
       }
     },
-    created () {
-      this.getData()
-    },
     computed: {
-      getData () {
-        console.log('777777777')
-        api.showFoodList()
-          .then(res => {
-            this.foodList = res
-          })
-        api.showQuestList()
-          .then(res => {
-            this.questList = res
-          })
-        api.showFoodPopList()
-          .then(res => {
-            this.foodPopList = res
-          })
-        api.showSearchList()
-          .then(res => {
-            this.searchList = res
-          })
-      },
       swiper () {
         return this.$refs.mySwiper.swiper
       }
@@ -180,7 +135,16 @@
 
 <style scoped>
   @import '../../static/css/style.css';
-  body{ color: #666; }
+  body{ color: #666;}
+  .list-head{
+    font-weight: 200;
+    font-size: 18px;
+    color: orange;
+
+  }
+  main .main-right{
+    padding: 0;
+  }
   .right-split {
     margin-right: 37px;
   }
@@ -269,7 +233,7 @@
   }
 
   .text {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .item {
@@ -284,21 +248,9 @@
     width: 100%;
     height: 225px;
   }
-  #questions{
-    color: #666;
-    border: none;
-    box-shadow: none;
-    margin-top: 0;
-  }
-  #questions div{ padding: 5px 0;}
-  #questions span{
-    float: right;
-  }
   .el-icon-star-on,.el-icon-caret-right{ color: orange;}
-  .foodlist-title{ color: orange;font-size: 20px;}
-  .title-page{ float: right; color: orange;}
+  .title-page{ float: right; color: orange;font-size: 14px;}
   .card-bottom{
-    margin-top: -15px;
     color: orange;
     float: right;
   }

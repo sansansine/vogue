@@ -9,10 +9,20 @@ import router from './router'
 import Vuex from 'vuex'
 import store from './vuex/store.js'
 import axios from 'axios'
+import menupop from './components/popmenu.vue'
+import questionlist from './components/questionlist.vue'
+import newfood from './components/newfood.vue'
+import pupsearch from './components/pupsearch.vue'
+import popfood from './components/popfood'
 
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper)
 Vue.use(Vuex)
+Vue.component('menu_pop', menupop)
+Vue.component('question_list', questionlist)
+Vue.component('new_food', newfood)
+Vue.component('pup_search', pupsearch)
+Vue.component('pop_food', popfood)
 
 Vue.prototype.$ajax = axios
 /* eslint-disable no-new */

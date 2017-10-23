@@ -113,7 +113,7 @@ export default {
     /* 主内容区 */
     main{    display: -webkit-box;  display: -ms-flexbox;  display: flex;  min-height: 800px; background-color: #FCFCFC;  }
     main .main-left{text-align: center;width: 200px;float: left;}
-    main .main-right{-webkit-box-flex: 1;  -ms-flex: 1;  flex: 1;  background-color: #fff; padding: 0px 70px; }
+    main .main-right{-webkit-box-flex: 1;  -ms-flex: 1;  flex: 1;  background-color: #fff;}
     main .el-menu{background-color: transparent!important;}
     .search:hover,.logout:hover{
       text-decoration: none !important;

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import activePublic from '@/components/index.vue'
-import one from '@/components/one.vue'
-import two from '@/components/two.vue'
-import login from '@/components/login.vue'
+import activePublic from '@/page/index.vue'
+import one from '@/page/one.vue'
+import two from '@/page/two.vue'
+import login from '@/page/login.vue'
 
 Vue.use(Router)
 

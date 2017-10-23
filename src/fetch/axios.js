@@ -67,5 +67,8 @@ export default {
   },
   showSearchList () {
     return fetch('/api/search/searchList', null)
+  },
+  showFoodNewList () {
+    return fetch('/api/food/foodNewList', null)
   }
 }

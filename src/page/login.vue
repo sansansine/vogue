@@ -6,7 +6,7 @@
         <el-input  v-model="loginForm.name" placeholder="用户名"></el-input>
       </el-form-item>
       <el-form-item prop="pwd">
-        <el-input v-model="loginForm.pwd" placeholder="密码"></el-input>
+        <el-input v-model="loginForm.pwd" placeholder="密码" @keyup.enter.native="submitForm('loginForm')"></el-input>
       </el-form-item>
       <el-button type="primary" class="login-btn" @click="submitForm('loginForm')">提交</el-button>
     </el-form>
@@ -50,7 +50,7 @@ export default {
                     message: '登录成功'
                   })
                   this.USER_SIGNIN(this.loginForm)
-                  this.$router.replace('/one')
+                  this.$router.replace('/index')
                 } else {
                   // element-ui消息提示
                   this.$message({

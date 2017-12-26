@@ -70,5 +70,20 @@ export default {
   },
   showFoodNewList () {
     return fetch('/api/food/foodNewList', null)
+  },
+  showProvinceList () {
+    return fetch('/api/dire/provinceList', null)
+  },
+  showCityList (params) {
+    return fetch('/api/dire/cityList', params)
+  },
+  showCountyList (params) {
+    return fetch('/api/dire/countyList', params)
+  },
+  submitEditPerson (params) {
+    return fetch('/api/user/editPerson', params)
+  },
+  getPersonInfo (params) {
+    return fetch('/api/user/getPersonInfo', params)
   }
 }

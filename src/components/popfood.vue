@@ -4,7 +4,7 @@
     <el-card :body-style="{ padding: '0px' }">
       <img v-bind:src="item.img" class="image">
       <div style="padding: 10px;color:rgb(106, 98, 72);">
-        <span style="font-weight: 200;">{{item.title}}</span>
+        <span>{{item.title}}</span>
         <a class="card-bottom"><i class="el-icon-more"></i></a>
       </div>
     </el-card>
@@ -23,16 +23,12 @@
       }
     },
     created () {
-      this.getData()
+      api.showFoodPopList()
+        .then(res => {
+          this.foodPopList = res
+        })
     },
     computed: {
-      getData () {
-        console.log('777777777')
-        api.showFoodPopList()
-          .then(res => {
-            this.foodPopList = res
-          })
-      }
     },
     methods: {
       increment () {
@@ -45,5 +41,7 @@
 </script>
 
 <style scoped>
-
+.el-card{
+  margin-top: 10px;
+}
 </style>

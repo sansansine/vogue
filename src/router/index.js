@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import activePublic from '@/page/index.vue'
-import one from '@/page/one.vue'
+import activePublic from '@/page/addfood.vue'
+import one from '@/page/index.vue'
 import two from '@/page/two.vue'
 import login from '@/page/login.vue'
+import editPerson from '@/page/editPerson.vue'
 
 Vue.use(Router)
 
@@ -27,8 +28,16 @@ export default new Router({
       // ]
     },
     {
-      path: '/one',
-      name: 'one',
+      path: '/editPerson',
+      name: 'editPerson',
+      meta: {
+        requireAuth: true
+      },
+      component: editPerson
+    },
+    {
+      path: '/index',
+      name: 'index',
       meta: {
         requireAuth: true  // 添加该字段，表示进入这个路由是需要登录的
       },

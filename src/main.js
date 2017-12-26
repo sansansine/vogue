@@ -9,6 +9,7 @@ import router from './router'
 import Vuex from 'vuex'
 import store from './vuex/store.js'
 import axios from 'axios'
+import headmenu from './components/head.vue'
 import menupop from './components/popmenu.vue'
 import questionlist from './components/questionlist.vue'
 import newfood from './components/newfood.vue'
@@ -18,6 +19,7 @@ import popfood from './components/popfood'
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper)
 Vue.use(Vuex)
+Vue.component('head_menu', headmenu)
 Vue.component('menu_pop', menupop)
 Vue.component('question_list', questionlist)
 Vue.component('new_food', newfood)
@@ -39,7 +41,7 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
+/*  Vue实例监听的范围（#app） */
 new Vue({
   el: '#app',
   router,

@@ -1,10 +1,10 @@
 <template>
   <div class="food_new" style="margin-left: -10px;">
-    <el-col :span="3" style="margin: 10px 2% 10px 2%;" v-for="(item, index) in foodNewList" >
+    <el-col :span="3" style="margin: 10px 1.5% 10px 1.5%;" v-for="item in foodNewList" >
       <el-card :body-style="{ padding: '0px'}">
         <img v-bind:src="item.img" class="image">
         <div style="padding: 10px;color:rgb(106, 98, 72);">
-          <div style="text-align: center;font-weight:200;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:keep-all;">{{item.title}}</div>
+          <div style="text-align: center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:keep-all;">{{item.title}}</div>
         </div>
       </el-card>
     </el-col>
@@ -21,16 +21,12 @@
       }
     },
     created () {
-      this.getData()
+      api.showFoodNewList()
+        .then(res => {
+          this.foodNewList = res
+        })
     },
     computed: {
-      getData () {
-        console.log('777777777')
-        api.showFoodNewList()
-          .then(res => {
-            this.foodNewList = res
-          })
-      }
     },
     methods: {
     },

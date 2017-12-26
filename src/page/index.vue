@@ -1,102 +1,187 @@
 <template>
-    <div class="activePublic ">
-      <el-row>
-        <h1 class="list-left">美食推荐列表</h1>
-        <el-button class="list-right" type="primary" icon="plus" @click="showEditModel">新增</el-button>
-      </el-row>
-      <el-row>
-        <el-table
-        :data="tableData"
-        stripe
-        style="width: 100%">
-          <el-table-column prop="date" label="日期" width="180"></el-table-column>
-          <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-          <el-table-column prop="address"label="地址"></el-table-column>
-        </el-table>
-      </el-row>
-
-      <!--新增界面-->
-      		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
-      			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-      				<el-form-item label="姓名" prop="name">
-      					<el-input v-model="addForm.name" auto-complete="off"></el-input>
-      				</el-form-item>
-      				<el-form-item label="性别">
-      					<el-radio-group v-model="addForm.sex">
-      						<el-radio class="radio" :label="1">男</el-radio>
-      						<el-radio class="radio" :label="0">女</el-radio>
-      					</el-radio-group>
-      				</el-form-item>
-      				<el-form-item label="年龄">
-      					<el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
-      				</el-form-item>
-      				<el-form-item label="生日">
-      					<el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>
-      				</el-form-item>
-      				<el-form-item label="地址">
-      					<el-input type="textarea" v-model="addForm.addr"></el-input>
-      				</el-form-item>
-      			</el-form>
-      			<div slot="footer" class="dialog-footer">
-      				<el-button @click.native="addFormVisible = false">取消</el-button>
-      				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
-      			</div>
-      		</el-dialog>
-
-    </div>
+  <div class="one">
+    <el-row class="tac" style="padding: 10px 70px;">
+      <el-col :span="3">
+        <el-menu default-active="1" class="el-menu-vertical-demo">
+          <el-menu-item index="1"><i class="icon1"></i>家常菜</el-menu-item>
+          <el-menu-item index="2"><i class="icon2"></i>快手菜</el-menu-item>
+          <el-menu-item index="3"><i class="icon3"></i>下饭菜</el-menu-item>
+          <el-menu-item index="4"><i class="icon4"></i>早餐</el-menu-item>
+          <el-menu-item index="5"><i class="icon5"></i>午餐</el-menu-item>
+          <el-menu-item index="6"><i class="icon4"></i>晚餐</el-menu-item>
+          <el-menu-item index="7"><i class="icon1"></i>汤羹</el-menu-item>
+          <el-menu-item index="8"><i class="icon2"></i>烘焙</el-menu-item>
+          <el-menu-item index="9"><i class="icon3"></i>面食</el-menu-item>
+        </el-menu>
+      </el-col>
+      <el-col :span="15">
+        <swiper :options="swiperOption" ref="mySwiper" style="margin: 0 2%;">
+          <!-- 这部分放你要渲染的那些内容 -->
+          <swiper-slide v-for="item in items">
+            <img :src="item" class="index_img">
+          </swiper-slide>
+          <!-- 这是轮播的小圆点 -->
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+        <el-row style="margin-top:20px;">
+          <el-col class="list-head">
+            <span class="foodlist-title">&nbsp;&nbsp;&nbsp;最新菜谱</span>
+            <span class="title-page">
+              <a><i class="el-icon-arrow-left"></i></a>&nbsp;&nbsp;&nbsp;
+              <a><i class="el-icon-arrow-right"></i></a>&nbsp;&nbsp;&nbsp;
+            </span>
+          </el-col>
+          <menu_pop></menu_pop>
+        </el-row>
+        <el-row style="margin-top:20px;">
+          <el-col class="list-head">
+            <span class="foodlist-title">&nbsp;&nbsp;&nbsp;你问我答</span>
+            <span class="title-page">
+                <a> 更多 </a>&nbsp;&nbsp;&nbsp;
+              </span>
+          </el-col>
+        </el-row>
+        <question_list></question_list>
+        <el-row>
+          <el-col class="list-head">
+            <span class="foodlist-title">&nbsp;&nbsp;&nbsp;时令食材</span>
+            <span class="title-page">
+              <a>更多</a>&nbsp;&nbsp;&nbsp;
+            </span>
+          </el-col>
+          <new_food></new_food>
+        </el-row>
+      </el-col>
+      <el-col :span="6">
+        <el-row>
+          <div class="reg">
+            <el-button type="primary"><i class="el-icon-upload el-icon--right"></i>QQ登录</el-button>
+            <br/><br/>
+            <el-button type="primary"><i class="el-icon-upload el-icon--right"></i>微博登录</el-button>
+            <br/><br/>
+            <a>手机/邮箱登录</a>&nbsp;&nbsp;<span style="color:rgba(61, 53, 31, 0.48);">|</span>&nbsp;&nbsp;<a
+            href="#">注册</a>
+          </div>
+        </el-row>
+        <el-row style="margin-top:20px;">
+          <el-col class="list-head">
+            <span>&nbsp;&nbsp;&nbsp;热门搜索</span>
+            <span class="title-page">
+              <a>更多</a>
+            </span>
+            <pup_search></pup_search>
+          </el-col>
+        </el-row>
+          <el-row style="margin-top:20px;">
+          <el-col class="list-head">
+            <span>&nbsp;&nbsp;流行菜谱</span>
+            <span class="title-page">
+              <a>更多</a>
+            </span>
+          </el-col>
+            <pop_food></pop_food>
+        </el-row>
+      </el-col>
+    </el-row>
+    <el-row style="text-align: center;margin-top: 20px;background: rgb(243, 243, 243);">
+      <p><i class="el-icon-share"></i>&nbsp;唯有美食与你不可辜负</p>
+    </el-row>
+  </div>
 </template>
 
 <script>
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
+  import menupop from '../components/popmenu.vue'
+  import questionlist from '../components/questionlist.vue'
+  import newfood from '../components/newfood.vue'
+
   export default {
+    name: 'one',
+    components: {
+      swiper,
+      swiperSlide,
+      menupop,
+      questionlist,
+      newfood
+    },
     data () {
       return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
-        addFormVisible: false,
-        addLoading: false,
-        addFormRules: {name: [{ required: true, message: '请输入姓名', trigger: 'blur' }]},
-        addForm: {
-          name: '',
-          sex: -1,
-          age: 0,
-          birth: '',
-          addr: ''
-        }
+        items: ['../static/banner1.jpg', '../static/banner2.jpg', '../static/banner3.jpg'],
+        swiperOption: {
+          autoplay: 3000,
+          pagination: '.swiper-pagination',
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          paginationClickable: true,
+          onSlideChangeEnd: swiper => {
+            this.page = swiper.realIndex + 1
+            this.index = swiper.realIndex
+          }
+        },
+        swiperSlides: [1, 2, 3, 4, 5]
       }
     },
-    motheds: {
-      showEditModel: function () {
-        this.addFormVisible = true
-        this.addForm = {name: '', sex: -1, age: 0, birth: '', addr: ''}
+    computed: {
+      swiper () {
+        return this.$refs.mySwiper.swiper
       }
+    },
+    methods: {
+      increment () {
+        this.$store.commit('increment')
+      }
+    },
+    mounted () {
     }
   }
 </script>
 
 <style scoped>
-.list-left{
-  float: left;
-}
-.list-right{
-  float: right;
-  margin-top: 25px;
-}
-.el-table th > .cell,.el-table td > .cell {
-  text-align: center;
-}
+  @import '../../static/css/style.css';
+  body{ color: #666;}
+  .list-head{
+    font-size: 16px;
+    color: orange;
+
+  }
+  .el-menu li {
+     font-size: 15px;
+  }
+  main .main-right{
+    padding: 0;
+  }
+  .reg {
+    background: rgb(246, 245, 238);
+    height: 180px;
+    width: 100%;
+    float: right;
+    text-align: center;
+    padding-top: 45px;
+  }
+
+  .reg .el-button {
+    width: 200px;
+  }
+
+  .reg a {
+    color: orange;
+  }
+  .el-col-offset-1 {
+    margin-left: 6.16667%;
+  }
+
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .index_img {
+    width: 100%;
+    height: 225px;
+  }
+  .title-page{ float: right; color: orange;font-size: 14px;}
 </style>

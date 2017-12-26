@@ -1,7 +1,9 @@
 var sqlMap = {
   // 用户
   user: {
-    add: 'select * from user where name = ? AND pwd = ?'
+    add: 'select * from user where name = ? AND pwd = ?',
+    edit: 'update user set name = ?,birth = ?,phone = ?,city = ?,county = ?,province = ?,sex = ?,label = ?,remark = ?',
+    getInfo: 'select * from user where name = ?'
   },
   // 食物
   food: {

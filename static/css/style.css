@@ -26,6 +26,7 @@
 }
 .search-item a{
   color: #666;
+  font-size: 15px;
   width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;

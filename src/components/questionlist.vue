@@ -1,8 +1,8 @@
 <template>
   <div class="question">
-    <el-card id="questions" class="box-card">
+    <el-card :body-style="{ padding: '12px' }" id="questions" class="box-card">
       <div v-for="item in questList" class="text item">
-        <a style="font-weight: 200;">{{item.question}}</a>
+        <a>{{item.question}}</a>
         <span>{{item.joins}}&nbsp;参与</span>
       </div>
     </el-card>
@@ -20,16 +20,12 @@
       }
     },
     created () {
-      this.getData()
+      api.showQuestList()
+        .then(res => {
+          this.questList = res
+        })
     },
     computed: {
-      getData () {
-        console.log('777777777')
-        api.showQuestList()
-          .then(res => {
-            this.questList = res
-          })
-      }
     },
     methods: {
       increment () {
@@ -89,7 +85,6 @@
     float: right;
     color: #909090;
     font-size: 14px;
-    font-weight: 200;
   }
   #questions a{
     color: #222;

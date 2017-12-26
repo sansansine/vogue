@@ -1,10 +1,10 @@
 <template>
   <div class="menu_pop">
-    <el-col :span="7" style="margin: 10px 2% 10px 2%;" v-for="(item, index) in foodList" >
+    <el-col :span="7" style="margin: 10px 2% 10px 2%;" v-for="item in foodList" >
       <el-card :body-style="{ padding: '0px' }">
         <img v-bind:src="item.img" class="image">
-        <div style="padding: 10px;color:rgb(106, 98, 72);font-weight: 200;">
-          <div style="width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:keep-all;">{{item.title}}</div>
+        <div style="padding: 10px;color:rgb(106, 98, 72);">
+          <div class="card-text" v-text="item.title"></div>
           <a class="card-bottom"><i class="el-icon-more"></i></a>
         </div>
       </el-card>
@@ -23,16 +23,12 @@
       }
     },
     created () {
-      this.getData()
+      api.showFoodList()
+        .then(res => {
+          this.foodList = res
+        })
     },
     computed: {
-      getData () {
-        console.log('777777777')
-        api.showFoodList()
-          .then(res => {
-            this.foodList = res
-          })
-      }
     },
     methods: {
       increment () {
@@ -46,6 +42,14 @@
 
 <style scoped>
   @import '../../static/css/style.css';
+  .card-text{
+    width:150px;
+    font-size: 14px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    word-break:keep-all;
+  }
   .card-bottom{
     color: orange;
     float: right;
